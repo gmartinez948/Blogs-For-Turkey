@@ -1,23 +1,15 @@
 const express = require("express");
-const cors = require("cors");
 
 const app = express();
+const port = 3000;
+const db = require("./models");
 
-app.use(cors());
-
-// parse requests of content-type - application/json
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const db = require("../server/models/");
-
-db.sequelize.sync();
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-});
+(async () => {
+  await db.sequelize.sync;
+})();
 
 // simple route
 app.get("/", (req, res) => {
@@ -25,7 +17,4 @@ app.get("/", (req, res) => {
 });
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
+app.listen(port, (err) => console.log(err ? err : "listening on port 3000"));
