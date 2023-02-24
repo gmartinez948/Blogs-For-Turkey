@@ -25,8 +25,16 @@ app.get("/", (req, res) => {
 app.post("/createUser", async (req, res) => {
   const { username, password, email } = req.body;
   try {
-    await createUser({ username, password, email });
-    await res.json({ success: "success" });
+    const user = await db.models.User.findOne({
+      where: { username: username },
+      where: { email: email },
+    });
+    if (user === null) {
+      await createUser({ username, password, email });
+      await res.json({ success: "success" });
+    } else {
+      await res.send("user already exists");
+    }
   } catch (error) {
     res.json({ error: error });
   }
