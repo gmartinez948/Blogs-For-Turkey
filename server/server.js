@@ -1,3 +1,4 @@
+const { createUser } = require("./controller/signUp.ts");
 const express = require("express");
 
 const app = express();
@@ -24,15 +25,11 @@ app.get("/", (req, res) => {
 app.post("/createUser", async (req, res) => {
   const { username, password, email } = req.body;
   try {
-    console.log(db.models.User.create);
-    const createUser = () => {
-      db.models.User.create({ username, password, email });
-    };
-    await createUser();
+    await createUser({ username, password, email });
+    await res.json({ success: "success" });
   } catch (error) {
     res.json({ error: error });
   }
-  await res.json({ success: "success" });
 });
 
 // set port, listen for requests
