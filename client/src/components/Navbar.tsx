@@ -6,8 +6,17 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
+import LoginModal from "./LoginModal.jsx";
 
 const Navbar = () => {
+  const [login, setLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    console.log("hit");
+    return <LoginModal />;
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -24,7 +33,9 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Support Earthquake Victims
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" onClick={handleLogin}>
+            Login
+          </Button>
           <Button color="inherit">Sign up</Button>
         </Toolbar>
       </AppBar>
