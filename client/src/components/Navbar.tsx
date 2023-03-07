@@ -6,16 +6,14 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
-import LoginModal from "./LoginModal.jsx";
-
+import { userLoggedInContext } from "../ContextProvider.tsx";
 const Navbar = () => {
-  const [login, setLoggedIn] = useState(false);
+  // const handleLogin = () => {
+  //   console.log("hit");
+  //   return <LoginModal />;
+  // };
 
-  const handleLogin = () => {
-    console.log("hit");
-    return <LoginModal />;
-  };
+  const isUserLoggedIn = React.useContext(userLoggedInContext);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -33,9 +31,7 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Support Earthquake Victims
           </Typography>
-          <Button color="inherit" onClick={handleLogin}>
-            Login
-          </Button>
+          {!isUserLoggedIn && <Button color="inherit">Login</Button>}
           <Button color="inherit">Sign up</Button>
         </Toolbar>
       </AppBar>
