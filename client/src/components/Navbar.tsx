@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -6,12 +6,17 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { userLoggedInContext } from "../ContextProvider.tsx";
+import {
+  userLoggedInContext,
+  isSignUpClickedContext,
+} from "../ContextProvider.tsx";
 const Navbar = () => {
-  // const handleLogin = () => {
-  //   console.log("hit");
-  //   return <LoginModal />;
-  // };
+  const isSignUpClicked = React.useContext(isSignUpClickedContext);
+
+  const handleLogin = () => {
+    console.log(isSignUpClicked, "inside handle login");
+    return !isSignUpClicked;
+  };
 
   const isUserLoggedIn = React.useContext(userLoggedInContext);
 
@@ -31,8 +36,14 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Support Earthquake Victims
           </Typography>
-          {!isUserLoggedIn && <Button color="inherit">Login</Button>}
-          <Button color="inherit">Sign up</Button>
+          {isUserLoggedIn ? (
+            <Button>Log out</Button>
+          ) : (
+            <Button color="inherit">Login</Button>
+          )}
+          <Button color="inherit" onClick={handleLogin}>
+            Sign up
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
