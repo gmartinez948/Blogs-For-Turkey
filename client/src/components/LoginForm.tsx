@@ -1,6 +1,7 @@
-import * as React from "react";
+import { useEffect } from "react";
 import { Box, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const LoginForm = () => {
   const {
@@ -9,7 +10,20 @@ const LoginForm = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = (data) => {
+    axios({
+      method: "post",
+      url: "http://localhost:80/createUser",
+      data: {
+        username: data.Username,
+        password: data.Password,
+        email: data.Email,
+      },
+    })
+      .then((response) => console.log(response))
+      .catch((error) => error);
+  };
 
   return (
     <Box>

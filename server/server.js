@@ -1,11 +1,13 @@
 const { createUser } = require("./controller/signUp.ts");
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
 const port = 80;
 const db = require("./models");
 
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(express.json());
 
 (async () => {
