@@ -7,12 +7,10 @@ import Navbar from "./components/Navbar.tsx";
 import LoginModal from "./components/LoginModal.tsx";
 
 const App = () => {
-  const isSignUpClicked = React.useContext(isSignUpClickedContext);
-  console.log(isSignUpClicked, "sign up status");
   return (
     <div>
       <Navbar />
-      {isSignUpClicked && <LoginModal />}
+      <LoginModal />
     </div>
   );
 };
